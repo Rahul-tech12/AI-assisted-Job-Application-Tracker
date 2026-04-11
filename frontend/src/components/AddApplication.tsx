@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { createApplication } from "../api.js";
+import "../App.css";
 
-export default function AddApplication() {
+interface AddApplicationProps {
+  onApplicationAdded?: () => void;
+}
+
+export default function AddApplication({ onApplicationAdded }: AddApplicationProps) {
   const [jd, setJd] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -21,6 +26,12 @@ export default function AddApplication() {
       const data = await createApplication(jd);
       setSuccess("Job application added successfully!");
       setJd("");
+      
+      // Refresh Kanban board data
+      if (onApplicationAdded) {
+        onApplicationAdded();
+      }
+      
       console.log(data);
     } catch (err) {
       setError("Failed to add application. Please try again.");

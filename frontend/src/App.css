@@ -293,14 +293,25 @@ body {
   flex: 1;
 }
 
+.kanban-column.drag-over {
+  background-color: rgba(102, 126, 234, 0.05);
+  border-color: #667eea;
+}
+
 .kanban-card {
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 1rem;
-  cursor: move;
+  cursor: grab;
   transition: all 0.3s ease;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  user-select: none;
+}
+
+.kanban-card:active {
+  cursor: grabbing;
+  opacity: 0.8;
 }
 
 .kanban-card:hover {

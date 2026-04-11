@@ -25,3 +25,20 @@ export const getApplications = async () => {
   return res.data;
 };
 
+export const updateApplication = async (id: string, data: any) => {
+  const res = await axios.put(
+    `${API_URL}/applications/${id}`,
+    data,
+    getHeaders()
+  );
+  return res.data;
+};
+
+export const deleteApplication = async (id: string) => {
+  const res = await axios.delete(
+    `${API_URL}/applications/${id}`,
+    getHeaders()
+  );
+  return res.data;
+};
+

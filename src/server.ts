@@ -20,9 +20,18 @@ if (result.error) {
 
 // Debug: Log if environment variables are loaded
 console.log("🔍 Environment variables status:");
-console.log("   MONGO_URI:", process.env.MONGO_URI ? "✅ Loaded" : "❌ Not loaded");
-console.log("   JWT_SECRET:", process.env.JWT_SECRET ? "✅ Loaded" : "❌ Not loaded");
-console.log("   OPENAI_API_KEY:", process.env.OPENAI_API_KEY ? "✅ Loaded" : "❌ Not loaded");
+console.log(
+  "   MONGO_URI:",
+  process.env.MONGO_URI ? "✅ Loaded" : "❌ Not loaded",
+);
+console.log(
+  "   JWT_SECRET:",
+  process.env.JWT_SECRET ? "✅ Loaded" : "❌ Not loaded",
+);
+console.log(
+  "   OPENAI_API_KEY:",
+  process.env.OPENAI_API_KEY ? "✅ Loaded" : "❌ Not loaded",
+);
 console.log("   PORT:", process.env.PORT || "5000 (default)");
 
 const app = express();
@@ -40,7 +49,8 @@ app.get("/health", (req, res) => {
 // MongoDB connection with retry logic
 const connectDB = async () => {
   try {
-    const mongoUri = "mongodb+srv://1122rahulchoudhary_db_user:Rahul@cluster0.0v50nq2.mongodb.net/jobs_db";
+    const mongoUri =
+      "mongodb+srv://1122rahulchoudhary_db_user:Rahul@cluster0.0v50nq2.mongodb.net/jobs_db";
     if (!mongoUri) {
       console.error("MONGO_URI is not defined in .env file");
       return;
@@ -53,7 +63,10 @@ const connectDB = async () => {
     });
     console.log("✅ MongoDB connected successfully");
   } catch (error) {
-    console.error("❌ MongoDB connection failed:", error instanceof Error ? error.message : error);
+    console.error(
+      "❌ MongoDB connection failed:",
+      error instanceof Error ? error.message : error,
+    );
     console.log("⚠️  Continuing without database. Some features may not work.");
     // Don't exit, allow the server to run without DB for now
   }

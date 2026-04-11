@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "../styles/auth.css";
 
 export default function Register() {
@@ -12,6 +12,7 @@ export default function Register() {
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e: any) => {
@@ -21,6 +22,11 @@ export default function Register() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setError("");
+
+    if (!formData.name.trim()) {
+      setError("Name is required");
+      return;
+    }
 
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords do not match");
@@ -41,7 +47,7 @@ export default function Register() {
       });
 
       localStorage.setItem("token", response.data.token);
-      navigate("/dashboard");
+      navigate("/login");
     } catch (err: any) {
       setError(err.response?.data?.msg || "Registration failed");
     }
@@ -49,93 +55,107 @@ export default function Register() {
   };
 
   return (
-    <div className="auth-container min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Decorative elements */}
-      <div className="background-decoration dot-1"></div>
-      <div className="background-decoration dot-2"></div>
+    <div className="auth-page">
+      <div className="auth-background">
+        <div className="gradient-blob blob-1"></div>
+        <div className="gradient-blob blob-2"></div>
+        <div className="gradient-blob blob-3"></div>
+      </div>
 
-      <div className="auth-card bg-white/10 backdrop-blur-xl rounded-2xl p-8 w-full max-w-md border border-white/20">
-        <div className="text-center mb-8">
-          <h1 className="auth-title text-4xl font-bold mb-2">Welcome</h1>
-          <p className="text-gray-400 text-sm">Create your account to get started</p>
-        </div>
-
-        {error && (
-          <div className="error-message p-4 rounded-lg mb-6 text-red-400 text-sm">
-            <span>⚠️ {error}</span>
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="form-group">
-            <input
-              type="text"
-              name="name"
-              placeholder="Full Name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-              className="form-input w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-400"
-            />
+      <div className="auth-wrapper">
+        <div className="auth-card">
+          <div className="auth-header">
+            <div className="auth-icon">✍️</div>
+            <h1>Create Account</h1>
+            <p>Join our community and track your job applications</p>
           </div>
 
-          <div className="form-group">
-            <input
-              type="email"
-              name="email"
-              placeholder="Email Address"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              className="form-input w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-400"
-            />
+          {error && <div className="alert alert-error">{error}</div>}
+
+          <form onSubmit={handleSubmit} className="auth-form">
+            <div className="form-group">
+              <label>Full Name</label>
+              <input
+                type="text"
+                name="name"
+                placeholder="John Doe"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                className="form-input"
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Email Address</label>
+              <input
+                type="email"
+                name="email"
+                placeholder="you@example.com"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                className="form-input"
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Password</label>
+              <div className="password-wrapper">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  placeholder="••••••••"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                  className="form-input"
+                />
+                <button
+                  type="button"
+                  className="toggle-password"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? "👁️" : "👁️‍🗨️"}
+                </button>
+              </div>
+            </div>
+
+            <div className="form-group">
+              <label>Confirm Password</label>
+              <input
+                type="password"
+                name="confirmPassword"
+                placeholder="••••••••"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                required
+                className="form-input"
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="auth-button"
+            >
+              {loading ? (
+                <>
+                  <span className="spinner"></span>
+                  Registering...
+                </>
+              ) : (
+                "Create Account"
+              )}
+            </button>
+          </form>
+
+          <div className="auth-footer">
+            <p>
+              Already have an account?{" "}
+              <Link to="/login" className="auth-link">Sign in</Link>
+            </p>
           </div>
-
-          <div className="form-group">
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-              className="form-input w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-400"
-            />
-          </div>
-
-          <div className="form-group">
-            <input
-              type="password"
-              name="confirmPassword"
-              placeholder="Confirm Password"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              required
-              className="form-input w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-400"
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="submit-btn w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center"
-          >
-            {loading && <span className="loading-spinner"></span>}
-            {loading ? "Creating Account..." : "Register"}
-          </button>
-        </form>
-
-        <p className="auth-link text-center mt-6 text-gray-400 text-sm">
-          Already have an account?{" "}
-          <a href="/login" className="font-semibold hover:text-blue-400">
-            Login here
-          </a>
-        </p>
-
-        <div className="mt-6 pt-6 border-t border-white/10">
-          <p className="text-center text-xs text-gray-500">
-            By registering, you agree to our Terms of Service
-          </p>
         </div>
       </div>
     </div>

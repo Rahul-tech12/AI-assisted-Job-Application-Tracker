@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import * as jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 export const authMiddleware = (req: any, res: Response, next: NextFunction): void => {
   try {
@@ -15,5 +15,6 @@ export const authMiddleware = (req: any, res: Response, next: NextFunction): voi
     next();
   } catch (error) {
     res.status(401).json({ msg: "Invalid or expired token" });
+    return;
   }
 };

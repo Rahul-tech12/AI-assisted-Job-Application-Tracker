@@ -1,0 +1,126 @@
+/* Dashboard Styles */
+.dashboard-container {
+  min-height: 100vh;
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dashboard-nav {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: var(--shadow);
+}
+
+.dashboard-nav-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dashboard-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+}
+
+.nav-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.btn-theme {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-theme:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.logout-btn {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.logout-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.dashboard-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.kanban-section {
+  margin-top: 2rem;
+}
+
+/* Dark Mode Theme */
+:root[data-theme="dark"] {
+  --bg: #0f172a;
+  --text: #cbd5e1;
+  --text-h: #f1f5f9;
+  --border: #1e293b;
+  --code-bg: #1e293b;
+  --accent: #667eea;
+  --accent-bg: rgba(102, 126, 234, 0.1);
+  --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+}
+
+/* Light Mode Theme (Default) */
+:root[data-theme="light"] {
+  --bg: #ffffff;
+  --text: #4b5563;
+  --text-h: #1f2937;
+  --border: #e5e7eb;
+  --code-bg: #f9fafb;
+  --accent: #667eea;
+  --accent-bg: rgba(102, 126, 234, 0.1);
+  --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .dashboard-nav-content {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .dashboard-title {
+    font-size: 1.2rem;
+  }
+
+  .nav-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .logout-btn {
+    flex: 1;
+  }
+
+  .dashboard-content {
+    padding: 1rem;
+  }
+}

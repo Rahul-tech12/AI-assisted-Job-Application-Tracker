@@ -1,6 +1,6 @@
 import User from "../models/User.js";
 import * as bcryptjs from "bcryptjs";
-import * as jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 export const registerUser = async (name: string, email: string, password: string) => {
   const existingUser = await User.findOne({ email });
