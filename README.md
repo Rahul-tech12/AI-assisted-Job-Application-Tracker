@@ -1,6 +1,6 @@
 # 🎯 AI-Assisted Job Application Tracker
 
-A full-stack web application that helps job seekers track their job applications with **AI-powered** job description parsing and resume suggestion generation. Paste a job description, and the app automatically extracts key details (company, role, skills, seniority, location) and generates tailored resume bullet points using Google Gemini AI.
+A full-stack web app where users track their job applications on a **Kanban board**. Paste any job description and the built-in AI automatically parses it to **auto-fill application details** (company, role, skills, seniority, location) and **generate tailored resume suggestions** — powered by Google Gemini AI.
 
 ## ✨ Features
 
