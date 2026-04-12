@@ -50,7 +50,7 @@ app.get("/health", (req, res) => {
 const connectDB = async () => {
   try {
     const mongoUri =
-      "mongodb+srv://1122rahulchoudhary_db_user:Rahul@cluster0.0v50nq2.mongodb.net/jobs_db";
+     process.env.MONGO_URI;
     if (!mongoUri) {
       console.error("MONGO_URI is not defined in .env file");
       return;
